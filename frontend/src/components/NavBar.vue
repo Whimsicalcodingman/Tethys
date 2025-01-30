@@ -112,13 +112,24 @@
         >
           About
         </router-link>
+        <!-- Login Link (Visible When No User is Logged In) -->
         <router-link
+          v-if="!userData"
           to="/login"
           class="block text-sm font-semibold text-gray-900 hover:text-indigo-600"
           @click="mobileMenuOpen = false"
         >
           Login
         </router-link>
+
+        <!-- Logout Link (Visible When User is Logged In) -->
+        <a
+          v-if="userData"
+          v-on:click="logout"
+          class="block text-sm font-semibold text-gray-900 hover:text-indigo-600"
+        >
+          Logout
+        </a>
       </div>
     </div>
   </header>
@@ -127,6 +138,21 @@
 <script setup>
 import { ref } from 'vue';
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline';
+
+import { computed } from 'vue'; // Import Vue utilities
+import { useStore } from 'vuex'; // Import Vuex for state management
+
+const store = useStore(); // Access the Vuex store
+
+// Dynamically compute user data
+const userData = computed(() => {
+  return store.state.user ? `${store.state.user} (Logged In)` : null;
+});
+
+// Logout method to clear the store and token
+const logout = () => {
+  store.dispatch('logout'); // Dispatch the Vuex logout action
+};
 
 const mobileMenuOpen = ref(false);
 </script>

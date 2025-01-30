@@ -110,7 +110,7 @@
           :key="movie._id"
           class="rounded-lg shadow-md bg-white p-4"
         >
-          <img :src="movie.poster" :alt="movie.title" class="rounded-lg w-full object-cover mb-4" />
+          <img :src="movie.poster ? movie.poster : placeholderImage" :alt="movie.title" class="rounded-lg w-full object-cover mb-4" />
           <h3 class="text-lg font-bold text-gray-800">{{ movie.title }}</h3>
           <p class="text-sm text-gray-600 mb-2">{{ movie.plot }}</p>
           <p class="text-sm font-semibold text-gray-800">Rated: {{ movie.rated }}</p>
@@ -129,6 +129,8 @@ import { ref, computed } from "vue";
 import { Listbox, ListboxButton, ListboxLabel, ListboxOption, ListboxOptions } from '@headlessui/vue';
 import { ChevronUpDownIcon } from '@heroicons/vue/20/solid';
 import { CheckIcon } from '@heroicons/vue/20/solid';
+
+import placeholderImage from '../assets/img/placeholders/404-image-placeholder.png'; // Import the placeholder
 
 import MovieService from '../services/MovieService'; // Importing MovieService
 
