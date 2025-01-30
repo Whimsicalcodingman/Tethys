@@ -114,7 +114,10 @@
           <h3 class="text-lg font-bold text-gray-800">{{ movie.title }}</h3>
           <p class="text-sm text-gray-600 mb-2">{{ movie.plot }}</p>
           <p class="text-sm font-semibold text-gray-800">Rated: {{ movie.rated }}</p>
-          <a href="#" class="text-sm/6 font-semibold text-indigo-600">Learn more <span aria-hidden="true">→</span></a>
+          <!-- Here we connect our button to our movie page route -->
+          <router-link :to="'/movie/'+movie._id">
+            <a href="#" class="text-sm/6 font-semibold text-indigo-600">View reviews</a>
+          </router-link>
         </div>
       </div>
     </div>
