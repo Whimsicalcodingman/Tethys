@@ -125,8 +125,8 @@
         <!-- Logout Link (Visible When User is Logged In) -->
         <a
           v-if="userData"
-          v-on:click="logout"
           class="block text-sm font-semibold text-gray-900 hover:text-indigo-600"
+          @click="logout"
         >
           Logout
         </a>
@@ -145,9 +145,7 @@ import { useStore } from 'vuex'; // Import Vuex for state management
 const store = useStore(); // Access the Vuex store
 
 // Dynamically compute user data
-const userData = computed(() => {
-  return store.state.user ? `${store.state.user} (Logged In)` : null;
-});
+const userData = computed(() => (store.state.user ? `${store.state.user} (Logged In)` : null));
 
 // Logout method to clear the store and token
 const logout = () => {

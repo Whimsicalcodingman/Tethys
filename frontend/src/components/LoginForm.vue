@@ -12,9 +12,11 @@
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form @submit.prevent="handleSubmit" class="space-y-6">
+      <form class="space-y-6" @submit.prevent="handleSubmit">
         <div>
-          <label for="email" class="block text-sm font-medium text-gray-900">Email address</label>
+          <label for="email" class="block text-sm font-medium text-gray-900">
+            Email address
+          </label>
           <div class="mt-2">
             <input
               id="email"
@@ -30,9 +32,13 @@
 
         <div>
           <div class="flex items-center justify-between">
-            <label for="password" class="block text-sm font-medium text-gray-900">Password</label>
+            <label for="password" class="block text-sm font-medium text-gray-900">
+              Password
+            </label>
             <div class="text-sm">
-              <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+              <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">
+                Forgot password?
+              </a>
             </div>
           </div>
           <div class="mt-2">
@@ -56,10 +62,21 @@
         <div>
           <button
             type="submit"
-            class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus:outline-indigo-600"
           >
             Sign in
           </button>
+        </div>
+
+        <div>
+          <div class="text-sm flex w-full justify-center">
+            <a
+              href="/register"
+              class="font-semibold text-indigo-600 hover:text-indigo-500"
+            >
+              Create a new account
+            </a>
+          </div>
         </div>
       </form>
     </div>
@@ -68,22 +85,38 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import axios from 'axios'; // Import axios for API calls
 
 const email = ref('');
 const password = ref('');
 const error = ref(null);
-const store = useStore();
 const router = useRouter();
 
 const handleSubmit = async () => {
+  error.value = null; // Clear previous error messages
+
   try {
-    // Send login credentials to Vuex store
-    await store.dispatch('login', { email: email.value, password: password.value });
-    router.push('/'); // Redirect to the homepage on success
+    // Make the API call to the /api/login endpoint
+    const response = await axios.post('http://localhost:5000/api/login', {
+      email: email.value,
+      password: password.value,
+    });
+
+    const { token, user } = response.data; // Extract token and user data
+    console.log('Login successful:', user);
+
+    // Save the token in localStorage for authentication
+    localStorage.setItem('authToken', token);
+
+    // Redirect to the homepage
+    router.push('/');
   } catch (err) {
-    error.value = 'Invalid email or password'; // Set error message
+    console.error('Login failed:', err);
+    error.value =
+      err.response && err.response.data && err.response.data.error
+        ? err.response.data.error
+        : 'An unexpected error occurred.';
   }
 };
 </script>

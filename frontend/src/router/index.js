@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'; // Import Home.vue
 import About from '../views/About.vue'; // Import About.vue
 import Movies from '../views/Movies.vue'; // Import Movies.vue
 import Login from '../views/Login.vue'; // Import Login.vue
+import UserRegistration from '../views/UserRegistration.vue'; // Import UserRegistration.vue
 import Movie from '../views/Movie.vue'; // Import Movie.vue (The movie detail page)
 
 const routes = [
@@ -30,6 +31,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: UserRegistration,
   },
 ];
 
