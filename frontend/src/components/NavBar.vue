@@ -39,12 +39,23 @@
         >
           About
         </router-link>
+
+        <!-- Account or Logout Link -->
         <router-link
+          v-if="!userData"
           to="/login"
           class="text-sm font-semibold text-gray-900 hover:text-indigo-600"
+          @click="mobileMenuOpen = false"
         >
-          Login
+          Account
         </router-link>
+        <a
+          v-else
+          class="text-sm font-semibold text-gray-900 hover:text-indigo-600 cursor-pointer"
+          @click="logout"
+        >
+          Logout
+        </a>
       </div>
 
       <!-- Mobile Hamburger Button -->
@@ -112,20 +123,19 @@
         >
           About
         </router-link>
-        <!-- Login Link (Visible When No User is Logged In) -->
+
+        <!-- Account or Logout Link -->
         <router-link
           v-if="!userData"
           to="/login"
           class="block text-sm font-semibold text-gray-900 hover:text-indigo-600"
           @click="mobileMenuOpen = false"
         >
-          Login
+          Account
         </router-link>
-
-        <!-- Logout Link (Visible When User is Logged In) -->
         <a
-          v-if="userData"
-          class="block text-sm font-semibold text-gray-900 hover:text-indigo-600"
+          v-else
+          class="block text-sm font-semibold text-gray-900 hover:text-indigo-600 cursor-pointer"
           @click="logout"
         >
           Logout
@@ -136,21 +146,18 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { useStore } from 'vuex';
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline';
 
-import { computed } from 'vue'; // Import Vue utilities
-import { useStore } from 'vuex'; // Import Vuex for state management
-
-const store = useStore(); // Access the Vuex store
-
-// Dynamically compute user data
-const userData = computed(() => (store.state.user ? `${store.state.user} (Logged In)` : null));
-
-// Logout method to clear the store and token
-const logout = () => {
-  store.dispatch('logout'); // Dispatch the Vuex logout action
-};
-
+const store = useStore();
 const mobileMenuOpen = ref(false);
+
+// Dynamically get user data
+const userData = computed(() => store.state.user); // Directly observe the Vuex state
+
+// Logout logic
+const logout = () => {
+  store.dispatch('logout');
+};
 </script>

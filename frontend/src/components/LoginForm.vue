@@ -86,37 +86,29 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import axios from 'axios'; // Import axios for API calls
+import { useStore } from 'vuex'; // Import Vuex store
 
 const email = ref('');
 const password = ref('');
 const error = ref(null);
 const router = useRouter();
+const store = useStore(); // Access Vuex store
 
 const handleSubmit = async () => {
   error.value = null; // Clear previous error messages
 
   try {
-    // Make the API call to the /api/login endpoint
-    const response = await axios.post('http://localhost:5000/api/login', {
-      email: email.value,
-      password: password.value,
-    });
+    // Dispatch Vuex login action instead of handling API logic here
+    await store.dispatch('login', { email: email.value, password: password.value });
 
-    const { token, user } = response.data; // Extract token and user data
-    console.log('Login successful:', user);
+    console.log('Login successful:', store.state.user); // This should now fire and show the logged-in user
 
-    // Save the token in localStorage for authentication
-    localStorage.setItem('authToken', token);
-
-    // Redirect to the homepage
+    // Redirect to the homepage after successful login
     router.push('/');
   } catch (err) {
     console.error('Login failed:', err);
-    error.value =
-      err.response && err.response.data && err.response.data.error
-        ? err.response.data.error
-        : 'An unexpected error occurred.';
+    error.value = err.message || 'An unexpected error occurred.';
   }
 };
 </script>
+
