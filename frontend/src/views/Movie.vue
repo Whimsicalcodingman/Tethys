@@ -44,6 +44,7 @@
         </p>
       </div>
     </div>
+    <MovieReviewForm />
   </div>
   <div class="container mx-auto pt-0 pb-6 pl-6 pr-6">
   <div class="reviews">
@@ -62,21 +63,58 @@
             <p class="mb-3 font-normal text-gray-700">
               {{ review.review }}
             </p>
+            <!-- DEBUG INFORMATION -->
+            <p>
+              Debug: currentUserId = {{ currentUserId }} | review.user_id = {{ review.user_id }}
+            </p>
           </div>
           <div class="flex justify-between w-100">
             <p class="font-normal text-xs text-gray-600">
               {{ review.formattedDate }}
             </p>
-            <div class="flex gap-3 justify-center align-center">
-              <button class="flex items-center text-xs">
-                <svg height="15" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+            <!-- Conditionally render edit/delete icons -->
+            <div
+              v-if="currentUserId === review.user_id"
+              class="flex gap-3 justify-center align-center mt-4"
+            >
+              <!-- Edit Icon -->
+              <button class="flex items-center text-xs text-blue-600 hover:underline">
+                <svg
+                  height="15"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-4 h-4 mr-1"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                  />
                 </svg>
+                Edit
               </button>
-              <button class="flex items-center text-xs">
-                <svg height="15" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+
+              <!-- Delete Icon -->
+              <button class="flex items-center text-xs text-red-600 hover:underline">
+                <svg
+                  height="15"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-4 h-4 mr-1"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18 18 6M6 6l12 12"
+                  />
                 </svg>
+                Delete
               </button>
             </div>
           </div>
@@ -90,13 +128,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'; // Import necessary Vue 3 utilities
+import { ref, computed, onMounted } from 'vue'; // Import necessary Vue 3 utilities
 import { useRoute, useRouter } from 'vue-router'; // Import Vue Router utilities
 import moment from 'moment'; // Import moment.js for date formatting
 import MovieService from '../services/MovieService'; // Import MovieService
 import placeholderImage from '../assets/img/placeholders/404-image-placeholder.png'; // Import the placeholder
+import { useStore } from 'vuex'; // Import the Vuex store
+import MovieReviewForm from '../components/MovieReviewForm.vue';
 
-// Reactive Data
+const store = useStore();
 const movie = ref({
   poster: '',
   title: '',
@@ -106,26 +146,27 @@ const movie = ref({
   reviews: [],
 });
 
-// Get the route and router objects
 const route = useRoute();
 const router = useRouter();
 
-// Function to format dates using moment.js
+// Get the logged-in user's ID
+const currentUserId = computed(() => store.state.user?.id);
+
+// Format dates
 const getFormattedDate = (date) => {
   if (!date) return 'Invalid Date';
-  return moment(date).format('MMMM Do, YYYY'); // Example format: January 30th 2025, 3:00:00 pm
+  return moment(date).format('MMMM Do, YYYY');
 };
 
-// Fetch the movie data
+// Fetch movie data
 const getMovie = async () => {
   try {
     const movieData = await MovieService.getMovie(route.params.id);
-    console.log('Fetched movie data:', movieData); // Debug log
 
     // Format review dates
     movieData.reviews = movieData.reviews.map((review) => ({
       ...review,
-      formattedDate: getFormattedDate(review.date), // Add formatted date field
+      formattedDate: getFormattedDate(review.date),
     }));
 
     movie.value = movieData;
@@ -134,12 +175,11 @@ const getMovie = async () => {
   }
 };
 
-// Method to navigate back
+// Navigate back
 const goBack = () => {
-  router.back(); // Go back to the previous page
+  router.back();
 };
 
-// Lifecycle Hook: Fetch data when the component is mounted
 onMounted(() => {
   getMovie();
 });

@@ -23,4 +23,23 @@ export default class MovieService {
 
     return res.data;
   }
+
+  // Add a new review
+  static async addReview(movieId, reviewContent) {
+    const token = localStorage.getItem('token'); // Get the stored token
+    const res = await axios.post(
+      'http://localhost:5000/api/v1/movies/review',
+      {
+        movie_id: movieId,
+        review: reviewContent,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add the Authorization header
+        },
+      },
+    );
+
+    return res.data;
+  }
 }
