@@ -31,16 +31,9 @@
         </div>
 
         <div>
-          <div class="flex items-center justify-between">
-            <label for="password" class="block text-sm font-medium text-gray-900">
-              Password
-            </label>
-            <div class="text-sm">
-              <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">
-                Forgot password?
-              </a>
-            </div>
-          </div>
+          <label for="password" class="block text-sm font-medium text-gray-900">
+            Password
+          </label>
           <div class="mt-2">
             <input
               id="password"
@@ -59,6 +52,11 @@
           {{ error }}
         </div>
 
+        <!-- Success Message -->
+        <div v-if="feedback" class="text-sm text-green-500">
+          {{ feedback }}
+        </div>
+
         <div>
           <button
             type="submit"
@@ -67,48 +65,31 @@
             Sign in
           </button>
         </div>
-
-        <div>
-          <div class="text-sm flex w-full justify-center">
-            <a
-              href="/register"
-              class="font-semibold text-indigo-600 hover:text-indigo-500"
-            >
-              Create a new account
-            </a>
-          </div>
-        </div>
       </form>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
-import { useStore } from 'vuex'; // Import Vuex store
 
 const email = ref('');
 const password = ref('');
 const error = ref(null);
+
+const store = useStore();
 const router = useRouter();
-const store = useStore(); // Access Vuex store
+const feedback = computed(() => store.getters.getFeedback); // Access feedback from Vuex
 
 const handleSubmit = async () => {
-  error.value = null; // Clear previous error messages
-
+  error.value = null; // Clear previous errors
   try {
-    // Dispatch Vuex login action instead of handling API logic here
     await store.dispatch('login', { email: email.value, password: password.value });
-
-    console.log('Login successful:', store.state.user); // This should now fire and show the logged-in user
-
-    // Redirect to the homepage after successful login
-    router.push('/');
   } catch (err) {
-    console.error('Login failed:', err);
-    error.value = err.message || 'An unexpected error occurred.';
+    console.error('Login failed:', err.message);
+    error.value = err.message;
   }
 };
 </script>
-
