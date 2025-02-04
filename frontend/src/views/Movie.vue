@@ -44,7 +44,29 @@
         </p>
       </div>
     </div>
-    <MovieReviewForm />
+    <button @click="form = !form" class="mt-3 flex align-middle items-center text-xs text-blue-600 hover:underline">
+      <svg
+        height="15"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-4 h-4 mr-1"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+        />
+      </svg>
+      Leave a review
+    </button>
+    <Transition>
+      <div v-if="form">
+        <MovieReviewForm />
+      </div>
+    </Transition>
   </div>
   <div class="container mx-auto pt-0 pb-6 pl-6 pr-6">
   <div class="reviews">
@@ -98,7 +120,9 @@
               </button>
 
               <!-- Delete Icon -->
-              <button class="flex items-center text-xs text-red-600 hover:underline">
+              <button 
+              @click="deleteReview(review._id)"
+              class="flex items-center text-xs text-red-600 hover:underline">
                 <svg
                   height="15"
                   xmlns="http://www.w3.org/2000/svg"
@@ -136,6 +160,8 @@ import placeholderImage from '../assets/img/placeholders/404-image-placeholder.p
 import { useStore } from 'vuex'; // Import the Vuex store
 import MovieReviewForm from '../components/MovieReviewForm.vue';
 
+const form = ref(false) // Define the form showing/hiding instance
+
 const store = useStore();
 const movie = ref({
   poster: '',
@@ -148,6 +174,11 @@ const movie = ref({
 
 const route = useRoute();
 const router = useRouter();
+
+const userName = ref(''); // Name field
+const reviewContent = ref(''); // Review content field
+
+const isAuthenticated = store.getters.isAuthenticated; // Check if user is logged in
 
 // Get the logged-in user's ID
 const currentUserId = computed(() => store.state.user?.id);
@@ -175,6 +206,25 @@ const getMovie = async () => {
   }
 };
 
+const deleteReview = async (reviewId) => {
+  try {
+    const token = localStorage.getItem('token'); // Retrieve the token from local storage
+    const movieId = route.params.id; // Current movie ID from the route
+
+    // Call the MovieService to delete the review
+    await MovieService.deleteReview(movieId, reviewId, token);
+
+    // Remove the deleted review from the local state
+    movie.value.reviews = movie.value.reviews.filter(review => review._id !== reviewId);
+
+    alert('Review deleted successfully!');
+  } catch (error) {
+    console.error('Error deleting review:', error);
+    alert('Failed to delete review. Please try again.');
+  }
+};
+
+
 // Navigate back
 const goBack = () => {
   router.back();
@@ -184,3 +234,15 @@ onMounted(() => {
   getMovie();
 });
 </script>
+
+<style>
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+</style>

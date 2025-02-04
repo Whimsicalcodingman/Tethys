@@ -11,7 +11,8 @@ export default class ReviewsController {
 
       // User information from the token
       const userInfo = {
-        name: req.user.email, // Use email from the token
+        name: req.body.name || req.user.email, // Use name or email from the token
+        email: req.user.email, // Use email from the token
         _id: req.user.id, // User ID from the token
       };
 

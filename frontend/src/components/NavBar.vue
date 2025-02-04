@@ -12,10 +12,9 @@
         >
           <img
             class="h-8 w-auto"
-            src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+            src="../assets/logo/tethys-logo-2.svg"
             alt="Movies App Logo"
           >
-          <span class="ml-2 text-xl font-bold text-indigo-600">Movies App</span>
         </router-link>
       </div>
 
@@ -85,7 +84,7 @@
         >
           <img
             class="h-8 w-auto"
-            src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+            src="./src/assets/logo/tethys-logo-2.svg"
             alt="Movies App Logo"
           >
           <span class="ml-2 text-xl font-bold text-indigo-600">Movies App</span>
