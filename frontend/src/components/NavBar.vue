@@ -84,7 +84,7 @@
         >
           <img
             class="h-8 w-auto"
-            src="./src/assets/logo/tethys-logo-2.svg"
+            src="../assets/logo/tethys-logo-v3.svg"
             alt="Movies App Logo"
           >
           <span class="ml-2 text-xl font-bold text-indigo-600">Movies App</span>

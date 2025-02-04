@@ -24,9 +24,13 @@ pnpm-debug.log*
 /backend/.env.*
 /frontend/.env.*
 
-# Keep package.json
-!/frontend/package.json
-!/frontend/package-lock.json
+# Include essential config files
+!frontend/package.json
+!frontend/package-lock.json
+!frontend/tailwind.config.js
+!frontend/postcss.config.cjs
+!frontend/vite.config.js
+!frontend/.eslintrc.cjs
 
 # Editor and IDE Settings
 .vscode/
