@@ -18,9 +18,6 @@ export default class MoviesController {
     }
 
     try {
-      // Log filters for debugging
-      console.log('Filters received:', filters);
-
       // Fetch movies from DAO
       const { moviesList, totalNumMovies } = await MoviesDAO.getMovies(
         { filters, page, moviesPerPage }

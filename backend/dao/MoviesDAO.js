@@ -39,8 +39,6 @@ export default class MoviesDAO {
             }
         }
     
-        console.log('Query sent to MongoDB:', query); // Debug the query object
-    
         try {
             const cursor = await MoviesDAO.movies
                 .find(query) // Apply the combined query

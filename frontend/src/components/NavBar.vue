@@ -12,7 +12,7 @@
         >
           <img
             class="h-8 w-auto"
-            src="../assets/logo/tethys-logo-2.svg"
+            src="../assets/logo/tethys-logo-v3.svg"
             alt="Movies App Logo"
           >
         </router-link>
