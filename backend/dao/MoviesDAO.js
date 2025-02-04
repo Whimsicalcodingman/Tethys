@@ -26,31 +26,38 @@ export default class MoviesDAO {
         page = 0,
         moviesPerPage = 20,
     } = {}) {
-        let query = {};
-
+        let query = {}; // Initialize an empty query object
+    
         if (filters) {
-            if ("title" in filters) {
-                query = { $text: { $search: filters.title } };
-            } else if ("rated" in filters) {
-                query = { rated: { $eq: filters.rated } };
+            if (filters.title) {
+                // Add title filter using $regex for partial and case-insensitive matching
+                query.title = { $regex: filters.title, $options: "i" };
+            }
+            if (filters.rated) {
+                // Add exact match filter for rating
+                query.rated = { $eq: filters.rated };
             }
         }
-
+    
+        console.log('Query sent to MongoDB:', query); // Debug the query object
+    
         try {
             const cursor = await MoviesDAO.movies
-                .find(query)
+                .find(query) // Apply the combined query
                 .limit(moviesPerPage)
                 .skip(moviesPerPage * page);
-
+    
             const moviesList = await cursor.toArray();
             const totalNumMovies = await MoviesDAO.movies.countDocuments(query);
-
+    
             return { moviesList, totalNumMovies };
         } catch (e) {
             console.error(`Unable to issue find command: ${e}`);
             return { moviesList: [], totalNumMovies: 0 };
         }
     }
+      
+    
 
     /**
      * Get distinct ratings from the movies collection.

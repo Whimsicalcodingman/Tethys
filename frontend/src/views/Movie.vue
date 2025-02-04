@@ -297,7 +297,7 @@ const deleteReview = async (reviewId) => {
 
 // Navigate back
 const goBack = () => {
-  router.back();
+  router.push('/movies');
 };
 
 onMounted(() => {
