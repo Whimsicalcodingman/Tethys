@@ -30,17 +30,15 @@ export default class ReviewsController {
   // Update an existing review
   static async apiUpdateReview(req, res, next) {
     try {
-      const { review_id: reviewId, review } = req.body; // Destructure required fields
+      const { review_id: reviewId, review } = req.body;
       if (!reviewId || !review) {
         return res.status(400).json({ error: 'Review ID and updated review content are required.' });
       }
 
-      const date = new Date(); // Current date
-
-      // Call DAO to update the review
+      const date = new Date();
       const reviewResponse = await ReviewsDAO.updateReview(
         reviewId,
-        req.user.id, // Only the owner can update
+        req.user.id, // Ensure only the review owner can update
         review,
         date
       );
@@ -51,7 +49,7 @@ export default class ReviewsController {
         });
       }
 
-      res.status(200).json({ status: 'success', review: reviewResponse });
+      res.status(200).json({ status: 'success', updatedReview: review });
     } catch (e) {
       console.error('Error in apiUpdateReview:', e.message);
       res.status(500).json({ error: 'Unable to update review.' });

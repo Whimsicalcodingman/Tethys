@@ -6,7 +6,7 @@
             v-model="userName"
             type="text"
             placeholder="Your Name (e.g., John Doe)"
-            class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
+            class="w-full p-3 text-sm shadow-md border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
             required
           />
         </div>
@@ -14,7 +14,7 @@
           <textarea
             v-model="reviewContent"
             placeholder="Write your review here..."
-            class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
+            class="w-full p-3 text-sm shadow-md border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
             rows="4"
             required
           ></textarea>
