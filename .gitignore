@@ -12,7 +12,6 @@ pnpm-debug.log*
 
 # Build and Cache Files
 /frontend/dist/
-/backend/dist/
 /frontend/.vite/
 /frontend/.vite-temp/
 /backend/.cache/
@@ -25,9 +24,9 @@ pnpm-debug.log*
 /backend/.env.*
 /frontend/.env.*
 
-# Package Locks
-/backend/package-lock.json
-/frontend/package-lock.json
+# Keep package.json
+!/frontend/package.json
+!/frontend/package-lock.json
 
 # Editor and IDE Settings
 .vscode/
@@ -50,7 +49,7 @@ pnpm-debug.log*
 /frontend/coverage/
 
 # Public Files (optional)
-/frontend/public/uploads/  # Ignore if uploads shouldn't be version-controlled
+/frontend/public/uploads/
 
 # Testing Reports
 /backend/reports/
@@ -64,7 +63,6 @@ pnpm-debug.log*
 /.github/workflows/*.secrets
 
 # Specific to Vue/Vite
-/frontend/node_modules/
 **/vite.config.js
 **/vue.config.js
 
