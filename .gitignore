@@ -32,6 +32,9 @@ pnpm-debug.log*
 !frontend/vite.config.js
 !frontend/.eslintrc.cjs
 
+!backend/package.json
+!backend/package-lock.json
+
 # Editor and IDE Settings
 .vscode/
 .idea/
