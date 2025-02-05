@@ -48,7 +48,6 @@ pnpm-debug.log*
 
 # MongoDB Data
 /backend/data/
-*.json
 
 # Coverage Reports
 /coverage/
