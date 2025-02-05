@@ -3,8 +3,8 @@ import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
   plugins: [vue()],
+  base: '/',
   build: {
-    outDir: 'dist', // Ensure this matches the distDir in vercel.json
+    outDir: 'dist',
   },
-  base: '/', // Set base to root for correct asset linking
 });
