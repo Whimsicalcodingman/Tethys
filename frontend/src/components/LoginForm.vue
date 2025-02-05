@@ -66,6 +66,14 @@
           </button>
         </div>
       </form>
+      <div class="text-sm flex w-full justify-center mt-6">
+        <a
+          href="/register"
+          class="font-semibold text-indigo-600 hover:text-indigo-500"
+        >
+          No account yet? Register for Tethys
+        </a>
+      </div>
     </div>
   </div>
 </template>
