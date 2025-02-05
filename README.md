@@ -12,3 +12,8 @@ Upcoming features ✨
 🎭 User Profiles
 ⭐ Review score/ratings
 🏆 Filter by score/ratings
+
+
+<!-- LOCAL DEVELOPMENT -->
+<!-- local api url can be used in .env.local -->
+VITE_API_URL=http://localhost:5000

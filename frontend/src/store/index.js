@@ -1,6 +1,7 @@
 import { createStore } from 'vuex';
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode'; // Correct the import
+const apiBaseUrl = import.meta.env.VITE_API_URL;
 
 const store = createStore({
   state: {
@@ -31,7 +32,8 @@ const store = createStore({
     async login({ commit }, { email, password }) {
       console.log('Login action called with:', email, password);
       try {
-        const res = await axios.post('http://localhost:5000/api/login', { email, password });
+        // Use `apiBaseUrl` for the backend endpoint
+        const res = await axios.post(`${apiBaseUrl}/api/login`, { email, password });
         console.log('API response:', res.data);
 
         const { token } = res.data;

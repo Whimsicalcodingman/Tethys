@@ -33,7 +33,7 @@
   import { ref } from 'vue';
   import { useRoute } from 'vue-router';
   import { useStore } from 'vuex';
-  import MovieService from '../services/MovieService';
+  import ReviewService from '../services/ReviewService';
   
   const userName = ref(''); // Name field
   const reviewContent = ref(''); // Review content field
@@ -46,7 +46,7 @@
     try {
       const movieId = route.params.id; // Current movie ID from the route
       // Send both the name and review content to the backend
-      await MovieService.addReview(movieId, userName.value, reviewContent.value);
+      await ReviewService.addReview(movieId, userName.value, reviewContent.value);
       userName.value = ''; // Clear the name input
       reviewContent.value = ''; // Clear the textarea
       alert('Review submitted successfully!');
