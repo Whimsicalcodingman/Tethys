@@ -83,11 +83,13 @@
         </button>
       </div>
     </div>
-    <Transition>
-      <div v-if="form">
-        <MovieReviewForm />
-      </div>
-    </Transition>
+    <div v-if="isAuthenticated">
+      <Transition>
+        <div v-if="form">
+          <MovieReviewForm />
+        </div>
+      </Transition>
+    </div>
   </div>
   <div class="container mx-auto pt-0 pb-6 pl-6 pr-6">
     <div class="reviews">
