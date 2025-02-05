@@ -48,7 +48,18 @@ class Index {
 
   // Setup the Express server
   static setUpServer() {
-    Index.app.use(cors()); // Enable CORS for all routes
+
+    // CORS configuration
+    const corsOptions = {
+      origin: [
+          'https://tethys-omega.vercel.app', // Vercel frontend
+          'http://localhost:3000',          // Local frontend (optional for development)
+      ],
+      methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+      credentials: true, // Allow cookies and credentials (if needed)
+    };
+  
+    Index.app.use(cors(corsOptions)); // Enable CORS for all routes
     Index.app.use(express.json()); // Parse incoming JSON requests
 
     // Log all incoming requests

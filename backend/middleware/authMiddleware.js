@@ -1,8 +1,5 @@
 import jwt from 'jsonwebtoken';
 
-// In case we need this later to streamline fetching secret
-const SECRET_KEY = process.env.JWT_SECRET;
-
 // Middleware function to validate JWT tokens
 const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
