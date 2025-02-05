@@ -77,15 +77,18 @@
           <img
             :src="movie.poster ? movie.poster : placeholderImage"
             :alt="movie.title"
-            class="rounded-lg w-full object-cover mb-4"
+            class="rounded-lg w-full h-96 object-cover mb-4"
             loading="lazy"
           >
-          <h3 class="text-lg font-bold text-gray-800">{{ movie.title }}</h3>
-          <p class="text-sm text-gray-600 mb-2">{{ movie.plot }}</p>
-          <p class="text-sm font-semibold text-gray-800">Rated: {{ movie.rated }}</p>
-          <router-link :to="'/movie/'+movie._id">
-            <a href="#" class="text-sm/6 font-semibold text-indigo-600">View reviews</a>
-          </router-link>
+          <div class="card-content">
+            <h3 class="text-lg font-bold text-gray-800">{{ movie.title }}</h3>
+            <p class="text-sm text-gray-600 mb-2">{{ movie.plot }}</p>
+            <p v-if="movie.rated" class="text-sm font-semibold text-gray-800">Rated: {{ movie.rated }}</p>
+            <p v-else class="text-sm font-semibold text-gray-800">Not rated</p>
+            <router-link :to="'/movie/'+movie._id">
+              <a href="#" class="text-sm/6 font-semibold text-indigo-600">View reviews</a>
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
