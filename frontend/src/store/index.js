@@ -33,11 +33,9 @@ const store = createStore({
       try {
         // Use `apiBaseUrl` for the backend endpoint
         const res = await axios.post(`${apiBaseUrl}/api/login`, { email, password });
-        console.log('API response:', res.data);
 
         const { token } = res.data;
         const decoded = jwtDecode(token);
-        console.log('Decoded token:', decoded);
 
         commit('setUser', { user: { email: decoded.email, id: decoded.id }, token });
 
