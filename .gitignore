@@ -7,22 +7,18 @@ pnpm-debug.log*
 
 # Node Modules
 /node_modules/
-/backend/node_modules/
-/frontend/node_modules/
+**/node_modules/
 
 # Build and Cache Files
-/frontend/dist/
-/frontend/.vite/
-/frontend/.vite-temp/
-/backend/.cache/
+**/dist/
+**/.vite/
+**/.vite-temp/
+**/.cache/
 
 # Environment Files
-/.env
-/.env.local
-/backend/.env
-/frontend/.env
-/backend/.env.*
-/frontend/.env.*
+**/.env
+**/.env.*
+**/.env.local
 
 # Include essential config files
 !frontend/package.json
@@ -50,27 +46,16 @@ pnpm-debug.log*
 /backend/data/
 
 # Coverage Reports
-/coverage/
-/backend/coverage/
-/frontend/coverage/
+**/coverage/
 
 # Public Files (optional)
 /frontend/public/uploads/
 
 # Testing Reports
-/backend/reports/
-/frontend/reports/
+**/reports/
 
-# Tailwind CSS (if any build files are generated)
-/frontend/tailwind.config.js
-/backend/tailwind.config.js
-
-# GitHub Actions or CI/CD Secrets (optional)
+# GitHub Actions or CI/CD Secrets
 /.github/workflows/*.secrets
-
-# Specific to Vue/Vite
-**/vite.config.js
-**/vue.config.js
 
 # Ignore ESLint and Prettier Cache Files
 .eslintcache
