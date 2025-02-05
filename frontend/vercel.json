@@ -1,7 +1,9 @@
 {
   "version": 2,
-  "public": "./dist",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
   ]
 }
