@@ -11,7 +11,6 @@ const store = createStore({
   },
   mutations: {
     setUser(state, { user, token }) {
-      console.log('setUser Mutation Triggered:', user, token);
       state.user = user; // User object includes email and id
       state.token = token;
       state.feedbackMessage = 'Login successful!';
