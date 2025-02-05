@@ -78,6 +78,7 @@
             :src="movie.poster ? movie.poster : placeholderImage"
             :alt="movie.title"
             class="rounded-lg w-full object-cover mb-4"
+            loading="lazy"
           >
           <h3 class="text-lg font-bold text-gray-800">{{ movie.title }}</h3>
           <p class="text-sm text-gray-600 mb-2">{{ movie.plot }}</p>

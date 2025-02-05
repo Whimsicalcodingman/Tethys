@@ -5,7 +5,7 @@ export default class MoviesController {
    * Fetch movies with optional filters, pagination, and a limit on movies per page.
    */
   static async apiGetMovies(req, res, next) {
-    const moviesPerPage = req.query.moviesPerPage ? parseInt(req.query.moviesPerPage) : 20;
+    const moviesPerPage = req.query.moviesPerPage ? parseInt(req.query.moviesPerPage) : 9;
     const page = req.query.page ? parseInt(req.query.page) : 0;
 
     // Build filters
