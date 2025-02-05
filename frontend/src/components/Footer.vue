@@ -41,8 +41,9 @@
       <!-- Social Media Icons -->
       <div class="mt-8 flex justify-center space-x-6">
         <a
-          href="#"
+          href="https://github.com/Whimsicalcodingman/Tethys"
           class="text-gray-400 hover:text-indigo-600"
+          name="GitHub Ims link"
         >
           <svg
             height="32"
@@ -58,8 +59,9 @@
           </svg>
         </a>
         <a
-          href="#"
+          href="https://www.instagram.com/whimsicalcodingman/"
           class="text-gray-400 hover:text-indigo-600"
+          name="Instagram Ims link"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -71,8 +73,9 @@
           </svg>
         </a>
         <a
-          href="#"
+          href="https://www.linkedin.com/in/ims-storm-van-leeuwen-19a87299/"
           class="text-gray-400 hover:text-indigo-600"
+          name="LinkedIn Ims link"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
