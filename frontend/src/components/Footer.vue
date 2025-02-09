@@ -4,7 +4,7 @@
       <!-- Footer Branding -->
       <div class="text-center">
         <img
-          src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+          src="../assets/logo/tethys-logo-v3.svg"
           alt="Your Company"
           class="mx-auto h-10 w-auto"
         >
